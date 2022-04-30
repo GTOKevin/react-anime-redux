@@ -15,7 +15,7 @@ console.log(data);
     <>
        <div className="text-center py-1 text-gray-200 rounded-full bg-gray-800 mb-8">
 
-          <h3 className="text-5xl font-bold uppercase">Album</h3>
+          <h3 className="text-5xl font-bold uppercase"></h3>
 
       </div>
 

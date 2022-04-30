@@ -49,7 +49,7 @@ export const SeekerScren = () => {
     <div>
       <div className="text-center py-1 text-gray-200 rounded-full bg-gray-800">
         
-      <h3 className="text-5xl font-bold uppercase">Buscador</h3>
+      <h3 className="text-5xl font-bold uppercase transition ease-in delay-150 hover:text-indigo-600">Buscar <span className="text-indigo-600 transition ease-in delay-150 hover:text-white">Gift</span></h3>
       </div>
       <form className="my-10 grid grid-cols-8" onSubmit={handleSubmit}>
 

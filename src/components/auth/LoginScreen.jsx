@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { startEmailAndPassword, startFacebookLogin, startGoogleLogin } from '../../action/auth'
+import { startEmailAndPassword } from '../../action/auth'
 import { useForm } from '../../hooks/useForm';
 import validator from 'validator';
 import Swal from 'sweetalert2';
@@ -38,14 +38,14 @@ export const LoginScreen = () => {
 
   const dispatch=useDispatch();
 
-    const loginGoogle=()=>{
-      dispatch(startGoogleLogin());
-    }
+    // const loginGoogle=()=>{
+    //   dispatch(startGoogleLogin());
+    // }
 
-    const loginFacebook=()=>{
+    // const loginFacebook=()=>{
  
-      dispatch(startFacebookLogin());
-    }
+    //   dispatch(startFacebookLogin());
+    // }
 
     const loginEmailPassword=(e)=>{
       e.preventDefault();
@@ -83,20 +83,9 @@ export const LoginScreen = () => {
           className='w-full bg-indigo-600 py-1 rounded text-white font-medium my-2.5 transition delay-200 ease-in hover:bg-indigo-700'>
             Ingresar
           </button>
-          <h6 className='text-center font-medium mb-2.5'>O</h6>
-         <div>
-            <div className='bg-green-500 my-2  py-1 rounded text-white cursor-pointer' 
-            onClick={loginGoogle}>
-              <p><i className="fa-brands fa-google px-2"></i><span className='pr-2 font-bold'>Ingresar con Google</span></p> 
-            </div>
-            <div className='bg-blue-500 my-2 py-1 rounded text-white cursor-pointer'
-            onClick={loginFacebook}>
-              <p><i className="fa-brands fa-facebook-f px-2"></i><span className='pr-2 font-bold'>Ingresar con Facebook</span></p> 
-            </div>
-         </div>
 
-         <div className='text-right text-blue-700 font-bold my-2'>
-            <Link to="/auth/registrar"> REGISTRARME </Link> 
+         <div className='text-left text-blue-700 font-bold my-2 text-xs hover:underline'>
+            <Link to="/auth/registrar" className=''> registrarme..? </Link> 
          </div>
          
         </form>

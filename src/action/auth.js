@@ -85,5 +85,5 @@ export const logout =()=>({
 })
 
 export const giftsLogout=()=>({
-    type:types.logoutGift
+    type:types.LogoutGift
 })

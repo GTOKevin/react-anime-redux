@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { login } from "../action/auth"
+import { startGiftLoading } from "../action/gift"
 import { LibraryScreen } from "../components/home/LibraryScreen"
 import { LoadingHome } from "../components/ui/LoadingHome"
 import { auth } from "../firebase/firebase-config"
@@ -19,10 +20,12 @@ export const AppRouter = () => {
     useEffect(() => {
         
         onAuthStateChanged(auth, async(user)=>{
-                console.log(user);
+            console.log(user);
                 if(user?.uid){
-                    dispatch(login(user.uid,user.displayName));
+                    dispatch(login(user.uid,user.displayName,user.photoURL));
                     setEstado(true);
+                    dispatch(startGiftLoading(user.uid))
+                    
                 }else{
                     setEstado(false);
                 }

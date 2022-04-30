@@ -1,4 +1,4 @@
-import {createUserWithEmailAndPassword, signInWithPopup, updateProfile} from 'firebase/auth';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile} from 'firebase/auth';
 import Swal from 'sweetalert2';
 import { auth, facebookAuthProvider, googleAuthProvider } from '../firebase/firebase-config';
 import { types } from '../types/types';
@@ -26,13 +26,12 @@ export const startCreateNewUser=(email,password,name)=>{
     }
 }
 
-
 export const startGoogleLogin=()=>{
     return (dispatch)=>{
         signInWithPopup(auth,googleAuthProvider)
         .then(({user})=>{
             console.log(user);
-                dispatch(login(user.uid,user.displayName))
+                dispatch(login(user.uid,user.displayName,user.photoURL));
         }).catch((err)=>{
             console.log(err);
         })
@@ -43,19 +42,48 @@ export const startFacebookLogin=()=>{
     return (dispatch)=>{
         signInWithPopup(auth,facebookAuthProvider)
         .then(({user})=>{
-                dispatch(login(user.uid,user.displayName))
+                dispatch(login(user.uid,user.displayName,user.photoURL))
         }).catch((err)=>{
             console.log(err);
         })
     } 
 }
 
-export const login=(uid,displayName)=>{
+export const login=(uid,displayName,photo)=>{
     return{
        type:types.login,
        payload:{
            uid,
-           displayName
+           displayName,
+           photo
        } 
     }
 }
+
+export const startEmailAndPassword=(email,password)=>{
+    return (dispatch)=>{
+        signInWithEmailAndPassword(auth,email,password)
+        .then(({user})=>{
+                dispatch(login(user.uid,user.displayName,user.photoURL));
+        }).catch((err)=>{
+            console.log(err);
+        })
+
+    }
+}
+
+export const startLogout=()=>{
+    return async(dispatch)=>{
+        await signOut(auth);
+        dispatch(logout());
+        dispatch(giftsLogout());
+    }
+}
+
+export const logout =()=>({
+    type:types.logout
+})
+
+export const giftsLogout=()=>({
+    type:types.logoutGift
+})

@@ -34,8 +34,6 @@ const validateForm=(form)=>{
     errors.contraseña2="Contraseñas no puede ser diferentes";
   }
 
-  console.log(errors);
-
   return errors;
 }
 
@@ -50,13 +48,9 @@ export const RegistrarScreen = () => {
   const [form,errors,handleChange,handleBurn]=useForm(initialForm,validateForm)
   const {email,nombre,contraseña}=form;
 
-  console.log(errors);
- 
-
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(Object.keys(errors).length === 0){
-      
       dispatch(startCreateNewUser(email,contraseña,nombre));
     }
 
@@ -81,7 +75,7 @@ export const RegistrarScreen = () => {
             (errors.email
             &&
             'ring-red-600')
-                   }
+              }
           placeholder='Email'
           name='email'
           value={form.email}

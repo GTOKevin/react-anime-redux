@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useGift } from "../../../hooks/useGift";
 import { CardsScreen } from "../../cards/CardsScreen";
+import { LoadingCard } from "../../ui/LoadingCard";
 
 
 const fbody={
@@ -9,7 +10,7 @@ const fbody={
 }
 
 export const WelcomeScreen = () => {
-    const [{data,loading},setResp]=useGift();
+    const [{data},setResp]=useGift();
 
   useEffect(()=>{
       setResp(fbody);
@@ -17,7 +18,7 @@ export const WelcomeScreen = () => {
 
   return (
     <div>
-      <div className="text-center py-1 text-gray-200 rounded-full bg-gray-800">
+      <div className="text-center py-1 text-gray-200 rounded-full bg-gray-800 mb-8">
         <h3 className="text-5xl font-bold uppercase">Bienvenidos</h3>
       </div>
 
@@ -26,7 +27,7 @@ export const WelcomeScreen = () => {
           ?data.map(dato=>{
            return <CardsScreen key={dato.id} objeto={dato} />
           })
-          :<p className="col-span-12">Cargando</p>
+          :<LoadingCard />
           
           }
       </div>

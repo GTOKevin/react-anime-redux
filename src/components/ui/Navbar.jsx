@@ -2,28 +2,33 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { startLogout } from '../../action/auth'
 // import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 const navigation = [
   { name: 'Bienvenidos', href: 'Welcome', current: true },
   { name: 'Buscador', href: 'Seeker', current: false },
   { name: 'Album', href: 'Album', current: false }
 ]
-const userNavigation = [
-  { name: 'Desconectarse', href: '#' },
-]
 
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(' ')
-// }
 
 export const Navbar =()=> {
+
+  const dispatch = useDispatch();
+
+
+  const {auth:user}=useSelector(state=>state);
+
+ 
+  const handleLogout=()=>{
+    dispatch(startLogout());
+  }
+
+  const userNavigation = [
+    { name: 'Desconectarse', href: handleLogout },
+  ]
+
   return (
     <>
 
@@ -33,29 +38,9 @@ export const Navbar =()=> {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                   <div className="flex items-center">
-                    {/* <div className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                        alt="Workflow"
-                      />
-                    </div> */}
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                        //   <a
-                        //     key={item.name}
-                        //     nav={item.href}
-                        //     className={classNames(
-                        //       item.current
-                        //         ? 'bg-gray-900 text-white'
-                        //         : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        //       'px-3 py-2 rounded-md text-sm font-medium'
-                        //     )}
-                        //     aria-current={item.current ? 'page' : undefined}
-                        //   >
-                        //     {item.name}
-                        //   </a>
                           <NavLink key={item.name} to={item.href} className={({isActive}) => "font-medium hover:text-blue-500 " +(!isActive? "text-white" :"text-indigo-500")}>{item.name}</NavLink>
                         ))}
                       </div>
@@ -63,20 +48,17 @@ export const Navbar =()=> {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <button
+                      <p
                         type="button"
                         className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                       >
-                        <span className="sr-only">View notifications</span>
-                        {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
-                      </button>
-
-                      {/* Profile dropdown */}
+                            {user.name}
+                      </p>
                       <Menu as="div" className="ml-3 relative">
                         <div>
                           <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                            <img className="h-8 w-8 rounded-full" src={user.photo} alt="" />
                           </Menu.Button>
                         </div>
                         <Transition
@@ -91,7 +73,7 @@ export const Navbar =()=> {
                           <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white text-center ring-1 ring-black ring-opacity-5 transition delay-100 ease-in hover:bg-gray-300  focus:outline-none">
                             {userNavigation.map((item) => (
                               <Menu.Item key={item.name}>                             
-                                  <NavLink to={item.href} className={isActive=>'font-medium ' +(isActive ? '' : '')}>{item.name}</NavLink>
+                                  <button onClick={item.href} className={isActive=>'font-medium ' +(isActive ? '' : '')}>{item.name}</button>
                               </Menu.Item>
                             ))}
                           </Menu.Items>
@@ -100,7 +82,6 @@ export const Navbar =()=> {
                     </div>
                   </div>
                   <div className="-mr-2 flex md:hidden">
-                    {/* Mobile menu button */}
                     <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
@@ -121,7 +102,6 @@ export const Navbar =()=> {
                       to={item.href}
                       className={isActive=> 'block px-3 py-2 rounded-md text-base font-medium '+(
                         !isActive ? 'bg-gray-900 text-white ' : 'text-gray-300 hover:bg-gray-700 hover:text-white '
-                       
                       )}
                     >
                       {item.name}
@@ -131,29 +111,21 @@ export const Navbar =()=> {
                 <div className="pt-4 pb-3 border-t border-gray-700">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={user.photo} alt="" />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
                     </div>
-                    <button
-                      type="button"
-                      className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
-                    </button>
                   </div>
                   <div className="mt-3 px-2 space-y-1">
                     {userNavigation.map((item) => (
-                      <Disclosure.Button
+                      <button
                         key={item.name}
-                        href={item.href}
-                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                        onClick={item.href}
+                        className="block w-full px-3 py-2 text-left rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                       >
                         {item.name}
-                      </Disclosure.Button>
+                      </button>
                     ))}
                   </div>
                 </div>

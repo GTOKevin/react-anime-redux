@@ -34,7 +34,7 @@ export const LoginScreen = () => {
 
 
   const [form,errors,handleChange,handleBurn]=useForm(initialForm,validateForm)
-  const {email,nombre,contraseña}=form;
+  const {email,contraseña}=form;
 
   const dispatch=useDispatch();
 

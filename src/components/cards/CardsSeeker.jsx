@@ -22,7 +22,7 @@ export const CardsSeeker = ({objeto}) => {
       :null
     }
       
-    <div className="col-span-12 md:col-span-6 xl:col-span-4  mx-5 my-5">
+    <div className="col-span-12 md:col-span-6 xl:col-span-4  mx-5 my-5  animate__animated animate__fadeInRight">
  
 
     <div className="grid grid-cols-2 ">

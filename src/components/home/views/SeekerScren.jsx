@@ -27,8 +27,7 @@ export const SeekerScren = () => {
     }
 
     if(formValidate()){
-      console.log(formValidate());    
-    setResp(fbody);
+     setResp(fbody);
     }
 
   }
@@ -88,6 +87,7 @@ export const SeekerScren = () => {
         })
         :<NotFound />)
       }
+      
       </div>
 
     </div>

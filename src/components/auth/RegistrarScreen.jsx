@@ -24,10 +24,11 @@ const validateForm=(form)=>{
   if(!form.nombre.trim()){
     errors.nombre="El campo nombre es requerido";
   }
-  if(!validator.isAlphanumeric(form.contraseña)){
-    errors.contraseña="No puede ingresar caracteres especiales";
-  }else if(form.contraseña.trim().length <5){
+  if(form.contraseña.trim().length <5){
     errors.contraseña="Debe tener minimo 6 caracteres";
+  }
+  else if(!validator.isAlphanumeric(form.contraseña)){
+    errors.contraseña="No puede ingresar caracteres especiales";
   }
 
   if(form.contraseña !== form.contraseña2){
@@ -60,38 +61,51 @@ export const RegistrarScreen = () => {
 
 
   return (
-    <div className='px-10 py-10 rounded bg-slate-50 w-5/5 sm:w-3/5 md:w-2/4 xl:w-1/4'>
+    <div className='grid grid-cols-6 w-5/5 sm:w-3/5 md:w-2/4 absolute animate__animated animate__fadeIn'>
 
-          <h3 className='text-center font-bold uppercase text-3xl text-blue-600'>Nuevo Usuario</h3>
+          
+          <div className='col-span-6 lg:col-span-3  px-10 py-10 text-white rounded-l-md' 
+        style={{background: "rgb(99,88,222)",
+        background: "linear-gradient(90deg, rgba(99,88,222,1) 54%, rgba(97,97,219,1) 63%)"}}>
+          <h5 className='text-2xl font-bold text-center'>Formulario de Registro!</h5>
+          <p className='py-4 text-center font-light'>Ingrese todo los campos y registrese para poder buscar los gift de su agrado</p>
+          <div className='my-5 text-xs text-center'>
+            <Link to="/auth/login" className='border px-10 font-medium py-2 rounded-full transition-colors ease-in delay-150 hover:bg-indigo-700 hover:border-indigo-700'>INGRESAR</Link> 
+         </div>
+        </div>
 
-          <form className='my-5' onSubmit={handleSubmit}>
+          <form className='col-span-6 lg:col-span-3 px-10 py-10 bg-slate-50 rounded-r-md' onSubmit={handleSubmit}>
 
-          <div></div>
+          {
+            errors.email
+            &&<label className='text-red-600'>{errors.email}</label>
+           
+          }
           <input 
            type='email'
           autoComplete='off'
           className={
-            'w-full ring rounded my-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:ring-indigo-600 focus:text-black '+
+            'w-full rounded-sm bg-gray-200 mb-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:outline-gray-700 focus:text-black '+
             (errors.email
             &&
-            'ring-red-600')
+            'bg-red-500')
               }
           placeholder='Email'
           name='email'
           value={form.email}
           onBlur={handleBurn}
           onChange={handleChange} />
-          {
-            errors.email
-            &&<div className='text-red-600'>{errors.email}</div>
-           
+         
+         {
+            errors.nombre
+            &&<div className='text-red-600'>{errors.nombre}</div>
           }
           <input 
           type='text'
           autoComplete='off'
-          className={'w-full rounded ring my-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:ring-indigo-600 focus:text-black '
+          className={'w-full rounded-sm bg-gray-200 mb-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:outline-gray-700 focus:text-black '
           + (errors.nombre
-            && 'ring-red-600')
+            && 'bg-red-500')
         }
           placeholder='Nombre'
           name='nombre'
@@ -99,57 +113,49 @@ export const RegistrarScreen = () => {
           onBlur={handleBurn}
           onChange={handleChange} />
 
-          {
-            errors.nombre
-            &&<div className='text-red-600'>{errors.nombre}</div>
+        
+        {
+            errors.contraseña
+            &&<div className='text-red-600'>{errors.contraseña}</div>
           }
-
            <input 
            type='password'
           autoComplete='off'
-          className={'w-full rounded ring my-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:ring-indigo-600 focus:text-black '
-         +(errors.contraseña && 'ring-red-600')}
+          className={'w-full rounded-sm bg-gray-200 mb-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:outline-gray-700 focus:text-black '
+         +(errors.contraseña && 'bg-red-500')}
           placeholder='Contraseña'
           name='contraseña'
           value={form.contraseña}
           onBlur={handleBurn}
           onChange={handleChange} />
-          {
-            errors.contraseña
-            &&<div className='text-red-600'>{errors.contraseña}</div>
+        
+
+
+        {
+            errors.contraseña2
+            &&<div className='text-red-600'>{errors.contraseña2}</div>
+           
           }
-
-
-
 
           <input 
            type='password'
           autoComplete='off'
-          className={'w-full rounded ring my-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:ring-indigo-600 focus:text-black '
+          className={'w-full rounded-sm bg-gray-200 mb-2.5 pl-2 py-1 outline-none text-gray-800 transition delay-200 ease-in focus:outline-gray-700 focus:text-black '
         + (errors.contraseña2
-          && 'ring-red-600')}
+          && 'bg-red-500')}
           placeholder='Repetir Contraseña' 
           name='contraseña2'
           value={form.contraseña2}
           onBlur={handleBurn}
           onChange={handleChange} />
-          {
-            errors.contraseña2
-            &&<div className='text-red-600'>{errors.contraseña2}</div>
-           
-          }
-        
-
-
-
-          <button className='w-full bg-indigo-600 py-1 rounded text-white font-medium my-2.5 transition delay-200 ease-in hover:bg-indigo-700'>
-            Registrarse
+       
+        <div className='w-full text-center my-4 text-xs'>
+          <button type='submit' 
+          className='py-2 px-14 rounded-full text-white font-medium' style={{background: "rgb(99,88,222)",
+          background: "linear-gradient(90deg, rgba(99,88,222,1) 54%, rgba(97,97,219,1) 63%)"}}>
+            REGISTRARSE
           </button>
-  
-          <div className='text-right text-blue-700 font-bold my-2'>
-            <Link to="/auth/login">Ingresar Login</Link>
           </div>
-     
          
         </form>
     </div>

@@ -15,7 +15,6 @@ export const startCreateNewUser=(email,password,name)=>{
                 showCloseButton:true
             })
         }).catch((e)=>{
-                console.log(e);
             Swal.fire({
                 icon:'error',
                 iconColor:'#e11f1f',
@@ -30,10 +29,9 @@ export const startGoogleLogin=()=>{
     return (dispatch)=>{
         signInWithPopup(auth,googleAuthProvider)
         .then(({user})=>{
-            console.log(user);
                 dispatch(login(user.uid,user.displayName,user.photoURL));
         }).catch((err)=>{
-            console.log(err);
+            Swal.fire("Login..!","nose pudo obtener la sessión Google","error")
         })
     } 
 }
@@ -44,7 +42,7 @@ export const startFacebookLogin=()=>{
         .then(({user})=>{
                 dispatch(login(user.uid,user.displayName,user.photoURL))
         }).catch((err)=>{
-            console.log(err);
+            Swal.fire("Login..!","nose pudo obtener la sessión Facebook","error")
         })
     } 
 }
@@ -66,7 +64,7 @@ export const startEmailAndPassword=(email,password)=>{
         .then(({user})=>{
                 dispatch(login(user.uid,user.displayName,user.photoURL));
         }).catch((err)=>{
-            console.log(err);
+            Swal.fire("Ooops!","usuario y/o contraseña incorrecta","error")
         })
 
     }

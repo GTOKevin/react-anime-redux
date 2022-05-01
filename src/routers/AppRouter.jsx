@@ -20,7 +20,6 @@ export const AppRouter = () => {
     useEffect(() => {
         
         onAuthStateChanged(auth, async(user)=>{
-            console.log(user);
                 if(user?.uid){
                     dispatch(login(user.uid,user.displayName,user.photoURL));
                     setEstado(true);

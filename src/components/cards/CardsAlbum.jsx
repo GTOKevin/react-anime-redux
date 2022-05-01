@@ -26,7 +26,7 @@ export const CardsAlbum = ({objeto}) => {
   }
 
     return (
-      <div className="col-span-12 md:col-span-6 xl:col-span-4  mx-5 my-5">
+      <div className="col-span-12 md:col-span-6 xl:col-span-4  mx-5 my-5 animate__animated animate__fadeIn">
   
         <div className="relative grid grid-cols-2 ">
             <img className="col-span-2 h-80 w-full transition delay-100 ease-in hover:opacity-50" src={objeto.url} alt={objeto.id} />

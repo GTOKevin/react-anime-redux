@@ -8,9 +8,6 @@ export const AlbumScreen = () => {
 
  const {gifts:data} = useSelector(state=>state.gift);
 
-
-console.log(data);
-
   return (
     <>
        <div className="text-center py-1 text-gray-200 rounded-full bg-gray-800 mb-8">

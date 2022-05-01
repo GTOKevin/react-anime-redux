@@ -8,7 +8,6 @@ import { WelcomeScreen } from "./views/WelcomeScreen"
 export const LibraryScreen = () => {
  
   document.getElementById('body').style.background="#4f46e5";
-  console.log(document.getElementById('body'));
 
   return (
     <div>

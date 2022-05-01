@@ -17,9 +17,6 @@ export const loadGifts = async(uid) => {
             ...snapHijo.data()
         })
     })
-
-    console.log(querySnap);
-
     return giftsSnap;
 
 

@@ -4,7 +4,7 @@ import { RegistrarScreen } from "../components/auth/RegistrarScreen"
 
 export const AuthRouter = () => {
   return (  
-    <div className="w-screen h-screen bg-blue-700 flex justify-center items-center">
+    <div className="w-screen h-screen bg-gray-800 flex justify-center items-center">
     <Routes>
         <Route path="login"  element={<LoginScreen />}/>
         <Route path="registrar" element={<RegistrarScreen />}/>
